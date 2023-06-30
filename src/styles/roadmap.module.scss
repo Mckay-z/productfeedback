@@ -16,11 +16,12 @@ $vw-viewport: 1440;
 .main {
   font-family: "Jost";
   width: 100vw;
+  min-height: 100vh;
   height: fit-content;
   background-color: #f2f2f2;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  // align-items: center;
   justify-content: center;
   padding: get-vw(100px) 0 get-vw(10px) 0;
 }
@@ -110,29 +111,29 @@ $vw-viewport: 1440;
 }
 .content {
   width: 100%;
-  height: get-vw(272px);
+  height: fit-content;
   background: #ffff;
   border-radius: get-vw(5px);
   border-top: #f49f85 get-vw(6px) solid;
-  padding: 0 get-vw(32px) 0 get-vw(32px);
+  padding: 0 get-vw(32px) get-vw(32px) get-vw(32px);
   margin-bottom: get-vw(24px);
 }
 .content2 {
   width: 100%;
-  height: get-vw(272px);
+  height: fit-content;
   background: #ffff;
   border-radius: get-vw(5px);
   border-top: #ad1fea get-vw(6px) solid;
-  padding: 0 get-vw(32px) 0 get-vw(32px);
+  padding: 0 get-vw(32px) get-vw(32px) get-vw(32px);
   margin-bottom: get-vw(24px);
 }
 .content3 {
   width: 100%;
-  height: get-vw(272px);
+  height: fit-content;
   background: #ffff;
   border-radius: get-vw(5px);
   border-top: #62bcfa get-vw(6px) solid;
-  padding: 0 get-vw(32px) 0 get-vw(32px);
+  padding: 0 get-vw(32px) get-vw(32px) get-vw(32px);
   margin-bottom: get-vw(24px);
 }
 .dotCont {
@@ -144,6 +145,9 @@ $vw-viewport: 1440;
   font-weight: 400;
   font-size: get-vw(16px);
   margin: get-vw(25px) 0 get-vw(8px) 0;
+}
+.dotCont p{
+  font-size: get-vw(20px);
 }
 .dot1 {
   width: get-vw(8px);
@@ -191,12 +195,8 @@ $vw-viewport: 1440;
   border: none;
   font-weight: 700;
   font-size: get-vw(14px);
-  cursor: pointer;
   color: #4661e6;
   margin-top: get-vw(16px);
-}
-.btn2:hover {
-  background-color: #cfd7ff;
 }
 .upvoteCont {
   display: flex;
@@ -205,8 +205,8 @@ $vw-viewport: 1440;
   justify-content: space-between;
 }
 .upvote {
-  width: get-vw(69px);
-  height: get-vw(40px);
+  width: get-vw(55px);
+  height: get-vw(34px);
   background: #f2f4ff;
   border-radius: 10px;
   display: flex;
@@ -227,6 +227,7 @@ $vw-viewport: 1440;
   height: get-vw(10px);
   background-repeat: no-repeat;
   background-position: center;
+  background-size: contain;
   margin-right: get-vw(10px);
 }
 .comment {
@@ -245,6 +246,7 @@ $vw-viewport: 1440;
   height: get-vw(18px);
   background-repeat: no-repeat;
   background-position: center;
+  background-size: contain;
   margin-right: get-vw(10px);
 }
 .inprogress {
@@ -371,7 +373,7 @@ $vw-viewport: 1440;
   }
   .content {
     width: 100%;
-    height: get-vw(480px);
+    height: fit-content;
     background: #ffff;
     border-radius: get-vw(15px);
     border-top: #f49f85 get-vw(15px) solid;
@@ -380,7 +382,7 @@ $vw-viewport: 1440;
   }
   .content2 {
     width: 100%;
-    height: get-vw(480px);
+    height: fit-content;
     background: #ffff;
     border-radius: get-vw(15px);
     border-top: #ad1fea get-vw(15px) solid;
@@ -389,11 +391,11 @@ $vw-viewport: 1440;
   }
   .content3 {
     width: 100%;
-    height: get-vw(480px);
+    height: fit-content;
     background: #ffff;
     border-radius: get-vw(15px);
     border-top: #62bcfa get-vw(15px) solid;
-    padding: 0 get-vw(32px) 0 get-vw(32px);
+    padding: 0 get-vw(32px) get-vw(32px) get-vw(32px);
     margin-bottom: get-vw(34px);
   }
   .dotCont {
@@ -405,6 +407,9 @@ $vw-viewport: 1440;
     font-weight: 400;
     font-size: get-vw(30px);
     margin: get-vw(25px) 0 get-vw(15px) 0;
+  }
+  .dotCont p{
+    font-size: get-vw(30px);
   }
   .dot1 {
     width: get-vw(20px);
@@ -440,20 +445,20 @@ $vw-viewport: 1440;
     font-weight: 400;
     font-size: get-vw(26px);
     color: #647196;
-    margin-top: get-vw(15px);
+    margin-top: get-vw(5px);
   }
   .btn2 {
-    width: get-vw(127px);
+    width: fit-content;
     height: get-vw(50px);
     background: #f2f4ff;
-    border-radius: 10px;
+    padding: 0 get-vw(20px) 0 get-vw(20px);
     display: flex;
     align-items: center;
     justify-content: center;
     border: none;
+    border-radius: get-vw(15px);
     font-weight: 700;
     font-size: get-vw(25px);
-    cursor: pointer;
     color: #4661e6;
     margin-top: get-vw(25px);
   }
@@ -467,10 +472,10 @@ $vw-viewport: 1440;
     justify-content: space-between;
   }
   .upvote {
-    width: get-vw(130px);
+    width: get-vw(90px);
     height: get-vw(60px);
     background: #f2f4ff;
-    border-radius: 10px;
+    border-radius: get-vw(15px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -538,7 +543,7 @@ $vw-viewport: 1440;
     background-color: #f2f2f2;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    // align-items: center;
     justify-content: center;
     padding: get-vw(0px) 0 get-vw(0px) 0;
   }
@@ -692,6 +697,9 @@ $vw-viewport: 1440;
     font-weight: 400;
     font-size: get-vw(55px);
     margin: get-vw(50px) 0 get-vw(30px) 0;
+  }
+  .dotCont p{
+    font-size: get-vw(60px);
   }
   .dot1 {
     width: get-vw(30px);

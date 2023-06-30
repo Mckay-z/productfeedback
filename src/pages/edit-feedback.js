@@ -1,13 +1,13 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Inter } from "next/font/google";
+import { Jost } from "next/font/google";
 import styles from "@/styles/edit-feedback.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { SuggestionsCtx } from "@/context";
 import React, { useEffect } from "react";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Jost({ subsets: ["latin"] });
 
 export default function Home() {
   const router = useRouter();
@@ -118,7 +118,6 @@ export default function Home() {
                   }}
                 >
                   <option value="Suggestion">Suggestion</option>
-                  <option value="Live">Live</option>
                   <option value="Planned">Planned</option>
                   <option value="In-Progress">In-Progress</option>
                   <option value="Live">Live</option>
@@ -151,7 +150,9 @@ export default function Home() {
                   Delete
                 </button>
                 <div className={styles.rightbtns}>
-                  <button className={styles.btn1}>Cancel</button>
+                  <button className={styles.btn1}
+                    onClick={() => router.back()}
+                  >Cancel</button>
                   <button
                     onClick={() => {
                       updateArray();

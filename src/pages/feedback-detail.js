@@ -1,19 +1,19 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Inter, Linden_Hill } from "next/font/google";
+import { Jost, Linden_Hill } from "next/font/google";
 import styles from "@/styles/feedback-detail.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { SuggestionsCtx } from "@/context";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Jost({ subsets: ["latin"] });
 
 export default function Home() {
   const router = useRouter();
   const { suggestions, setSuggestions } = React.useContext(SuggestionsCtx);
   const { id } = router?.query;
-
+  
   const [comment, setComment] = React.useState("");
   const [item, setItem] = React.useState({});
 
@@ -44,6 +44,22 @@ export default function Home() {
     }
   }
 
+  function addCommentReply(idd, replyId, replies, array) {
+    for (var i in array) {
+      if (array[i].id == idd) {
+        let currComments = array[i].comments
+        for (var i in currComments) {
+          if (currComments[i].id == replyId) {
+            currComments[i].replies = replies;
+            search(id, suggestions);
+            break; //Stop this loop, we found it!
+          }
+        }
+
+      }
+    }
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -68,8 +84,10 @@ export default function Home() {
               {item?.upvoates}
             </button>
             <div className={styles.txt}>
-              <text>{item?.title}</text>
-              <p>{item?.details}</p>
+              <text>{item?.title} </text>
+              <div className={styles.pcont}>
+                <p>{item?.details}</p>
+              </div>
               <button className={styles.btn3}>{item?.category}</button>
             </div>
             <div className={styles.chat}>
@@ -78,10 +96,12 @@ export default function Home() {
             </div>
             <div className={styles.chat2}>
               <button className={styles.btn10}>
-                <span></span>99
+                <span></span>
+                {item?.upvoates}
               </button>
               <div className={styles.chat1}>
-                <span></span>4
+                <span></span>
+                {item?.comments?.length}
               </div>
             </div>
           </div>
@@ -90,27 +110,17 @@ export default function Home() {
               <h3>{item?.comments?.length} Comments</h3>
               {item?.comments?.map((item, index) => {
                 return (
-                  <div className={styles.comment1}>
-                    <div className={styles.profileCont}>
-                      <div className={styles.profilepic}>
-                        <span></span>
-                      </div>
-                      <div className={styles.username}>
-                        <div className={styles.name}>
-                          <text>Jane Doe</text>
-                          <p>@jane.user</p>
-                        </div>
-                        <text>Reply</text>
-                      </div>
-                    </div>
-                    <div className={styles.info}>
-                      <div className={styles.message}>{item?.text}</div>
-                      {/* <div className={styles.replyCont}>
-                        <input type="text"></input>
-                        <button>Post Reply</button>
-                      </div> */}
-                    </div>
-                  </div>
+                  <CommentItem item={item} index={index} onReply={(reply, rid) => {
+                    let prevComs = item?.replies;
+                    addCommentReply(id, rid, [...prevComs, {
+                      text: reply,
+                      upvotes: 0,
+                      replies: [],
+                      id: prevComs?.length + 1
+                    }], suggestions)
+
+                    setComment("");
+                  }} />
                 );
               })}
             </div>
@@ -138,6 +148,8 @@ export default function Home() {
                       {
                         text: comment,
                         upvotes: 0,
+                        replies: [],
+                        id: prevComs?.length + 1
                       },
                     ],
                     suggestions
@@ -155,4 +167,85 @@ export default function Home() {
       </main>
     </div>
   );
+}
+
+
+const CommentItem = ({ item, index, onReply = () => { } }) => {
+  const [openReply, setOpenReply] = useState(false)
+  const [replyText, setReplyText] = useState("")
+
+  return (
+    <div className={styles.comment1}>
+      <div className={styles.comment2}>
+        <div className={styles.comment1}>
+          <div className={styles.profileCont}>
+            <div className={styles.profilepic}><img></img></div>
+            <div className={styles.username}>
+              <div className={styles.name}>
+                <text>User {index + 1}</text>
+                <p>@username</p>
+              </div>
+              <text onClick={() => setOpenReply(!openReply)}>Reply</text>
+            </div>
+          </div>
+          <div className={styles.info}>
+            <div className={styles.message}>
+              {item?.text}</div>
+            {openReply && <div className={styles.replyCont}>
+              <input value={replyText} onChange={(v) => setReplyText(v.target.value)} type="text"></input>
+              <button onClick={() => {
+                onReply(replyText, item?.id)
+                setReplyText("")
+                setOpenReply(false)
+              }}>Post Reply</button>
+            </div>}
+          </div>
+        </div>
+        {item?.replies?.length > 0 ?
+          item?.replies?.map((item, index) => {
+            return (
+              <ReplyItem item={item} index={index} onReply={(it, id) => {
+                onReply(it, id)
+                setReplyText("")
+                setOpenReply(false)
+              }} />
+            )
+          })
+          : <></>}
+      </div>
+    </div>
+  )
+}
+
+const ReplyItem = ({ item, index, onReply = () => { } }) => {
+  const [openReply, setOpenReply] = useState(false)
+  const [replyText, setReplyText] = useState("")
+
+  return (
+    <div className={styles.replies}>
+      <div className={styles.comment1}>
+        <div className={styles.profileCont}>
+          <div className={styles.profilepic}><img></img></div>
+          <div className={styles.username}>
+            <div className={styles.name}>
+              <text>Reply User {index + 1} </text>
+              <p>@replyUsername</p>
+            </div>
+            <text onClick={() => setOpenReply(!openReply)} className={styles.txt2}>Reply</text>
+          </div>
+        </div>
+        <div className={styles.info}>
+          <div className={styles.message}>{item?.text}</div>
+          {openReply && <div className={styles.replyCont}>
+            <input value={replyText} onChange={(v) => setReplyText(v.target.value)} type='text'></input>
+            <button onClick={() => {
+              onReply("@replyUsername " + replyText, item?.id)
+              setReplyText("")
+              setOpenReply(false)
+            }}>Post Reply</button>
+          </div>}
+        </div>
+      </div>
+    </div>
+  )
 }

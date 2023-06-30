@@ -1,13 +1,13 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Inter } from "next/font/google";
+import { Jost } from "next/font/google";
 import styles from "@/styles/feedback-new.module.scss";
 import React from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { SuggestionsCtx } from "@/context";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Jost({ subsets: ["latin"] });
 
 export default function Home() {
   const { suggestions, setSuggestions } = React.useContext(SuggestionsCtx);
@@ -16,13 +16,14 @@ export default function Home() {
   const [payload, setpayload] = React.useState({
     id: suggestions?.length + 1,
     title: "",
-    category: "",
+    category: "Feature",
     details: "",
     upvoates: 0,
     comments: [],
     status: "Suggestion",
   });
   const [error, setError] = React.useState(false);
+  const [error2, setError2] = React.useState(false);
 
   return (
     <div className={styles.container}>
@@ -45,6 +46,9 @@ export default function Home() {
                 <text>Feedback Title</text>
                 <p>Add a short, descriptive headline</p>
                 <input
+                  style={{
+                    borderColor: error ? "#d73737" : "#eee",
+                  }}
                   required
                   onChange={(value) => {
                     setpayload({
@@ -55,7 +59,9 @@ export default function Home() {
                   value={payload?.title}
                   type="text"
                   placeholder=""
-                ></input>
+                >
+                </input>
+                {error ? <div className={styles.err}>Can't be empty</div> : null}
               </div>
               <div className={styles.input2}>
                 <text>Category</text>
@@ -70,7 +76,7 @@ export default function Home() {
                   }}
                   value={payload?.category}
                 >
-                  <option value="Feture">Feature</option>
+                  <option value="Feature">Feature</option>
                   <option value="UI">UI</option>
                   <option value="UX">UX</option>
                   <option value="Enhancement">Enhancement</option>
@@ -86,7 +92,7 @@ export default function Home() {
                 </p>
                 <textarea
                   style={{
-                    borderColor: error ? "#d73737" : "#eee",
+                    borderColor: error2 ? "#d73737" : "#eee",
                   }}
                   required
                   onChange={(value) => {
@@ -97,7 +103,7 @@ export default function Home() {
                   }}
                   value={payload?.details}
                 />
-                {error ? <p>Can't be empty</p> : null}
+                {error2 ? <div className={styles.err}>Can't be empty</div> : null}
               </div>
               <div className={styles.btns}>
                 <button onClick={() => router.back()} className={styles.btn1}>
@@ -105,9 +111,14 @@ export default function Home() {
                 </button>
                 <button
                   onClick={() => {
-                    if (payload?.details == "") {
+                    if (payload?.title == "") {
                       setError(true);
+                    } else if (payload?.details == "") {
+                      setError(false);
+                      setError2(true);
                     } else {
+                      setError2(false);
+                      setError(false);
                       setSuggestions([...suggestions, payload]);
                       router.push("/");
                     }

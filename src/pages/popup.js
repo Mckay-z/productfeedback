@@ -1,16 +1,15 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Inter } from "next/font/google";
+import { Jost } from "next/font/google";
 import styles from "@/styles/popup.module.scss";
 import Link from "next/link";
 import React from "react";
 import { SuggestionsCtx } from "@/context";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Jost({ subsets: ["latin"] });
 
-export default function Popup() {
-  const [filter, setFilter] = React.useState("");
-
+export default function Popup({ filter, setFilter, sort, setSort }) {
+  const { suggestions, setSuggestions } = React.useContext(SuggestionsCtx);
   return (
     <div className={styles.container}>
       <Head>
@@ -26,7 +25,7 @@ export default function Popup() {
               <div className={styles.line}>
                 <div
                   onClick={() => {
-                    setFilter("");
+                    setFilter("");//sets the filter to none ie it displays all elements in the array
                   }}
                   className={styles.btn1}
                   style={{
@@ -116,26 +115,26 @@ export default function Popup() {
                   <div className={styles.dot1}></div>
                   <p>Planned</p>
                 </div>
-                <text>0</text>
+                <text>{suggestions.filter((item) => item?.status === "Planned")?.length} </text>
               </div>
               <div className={styles.txt3}>
                 <div className={styles.dotCont}>
                   <div className={styles.dot2}></div>
                   <p>In-Progress</p>
                 </div>
-                <text>0</text>
+                <text>{suggestions.filter((item) => item?.status === "In-Progress")?.length} </text>
               </div>
               <div className={styles.txt4}>
                 <div className={styles.dotCont}>
                   <div className={styles.dot3}></div>
                   <p>Live</p>
                 </div>
-                <text>0</text>
+                <text>{suggestions.filter((item) => item?.status === "Live")?.length} </text>
               </div>
             </div>
           </div>
         </div>
-      </main>
-    </div>
+      </main >
+    </div >
   );
 }

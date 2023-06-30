@@ -1,18 +1,22 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Inter } from "next/font/google";
+import { Jost } from "next/font/google";
 import styles from "@/styles/roadmap.module.scss";
 import React from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { SuggestionsCtx } from "@/context";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Jost({ subsets: ["latin"] });
 
 export default function Home() {
+  const { suggestions, setSuggestions } = React.useContext(SuggestionsCtx);
+
   const router = useRouter();
   const [page, setPage] = React.useState([1]);
 
   React.useEffect(() => {
+
     let size = window.innerWidth;
     console.log(size);
     if (size > 400) {
@@ -56,7 +60,7 @@ export default function Home() {
                 borderBottom: page[0] == 1 ? "#f49f85 3px solid" : "none",
               }}
             >
-              Planned (2)
+              Planned ({suggestions.filter((item) => item?.status === "Planned")?.length})
             </div>
             <div
               className={styles.two}
@@ -67,7 +71,7 @@ export default function Home() {
                 borderBottom: page[0] == 2 ? "#ad1fea 3px solid" : "none",
               }}
             >
-              In-Progress (3)
+              In-Progress ({suggestions.filter((item) => item?.status === "In-Progress")?.length})
             </div>
             <div
               className={styles.three}
@@ -78,158 +82,159 @@ export default function Home() {
                 borderBottom: page[0] == 3 ? "#62bcfa 3px solid" : "none",
               }}
             >
-              Live (1)
+              Live ({suggestions.filter((item) => item?.status === "Live")?.length})
             </div>
           </div>
           <div className={styles.map}>
             {page.includes(1) ? (
               <div className={styles.planned}>
                 <div className={styles.header}>
-                  <text>Planned (2)</text>
+                  <text> Planned ({suggestions.filter((item) => item?.status === "Planned")?.length})</text>
                   <p>Ideas prioritized for research</p>
                 </div>
-                <div className={styles.content}>
-                  <div className={styles.dotCont}>
-                    <div className={styles.dot1}></div>
-                    <p>Planned</p>
-                  </div>
-                  <div className={styles.info}>
-                    <text>More comprehensive reports</text>
-                    <p>
-                      It would be great to see a more detailed breakdown of
-                      solutions.
-                    </p>
-                  </div>
-                  <button className={styles.btn2}>Feature</button>
-                  <div className={styles.upvoteCont}>
-                    <button className={styles.upvote}>
-                      <span></span>123
-                    </button>
-                    <div className={styles.comment}>
-                      <span></span>2
+                {suggestions?.filter((item) => {
+                  return item?.status == "Planned"
+                }).map((item, index) => {
+                  return (
+                    <div className={styles.content}>
+                      <div className={styles.dotCont}>
+                        <div className={styles.dot1}></div>
+                        <p>Planned</p>
+                      </div>
+                      <div className={styles.info}>
+                        <Link href={"/feedback-detail/?id="
+                        /*sends the id and tile of the suggestion
+                           you want to read to the details
+                           page so that it displays that
+                           specific suggestions details*/ + item?.id}><text>{item?.title}</text></Link>
+                        <p>
+                          {item?.details}
+                        </p>
+                      </div>
+                      <button className={styles.btn2}>{item?.category}</button>
+                      <div className={styles.upvoteCont}>
+                        <button onClick={() => {
+                          let tempsuggestions = [...suggestions]
+                          for (var i in tempsuggestions) {
+                            if (tempsuggestions[i].id == item?.id) {
+                              tempsuggestions[i].upvoates = tempsuggestions[i].upvoates + 1;
+
+                              setSuggestions([...tempsuggestions])
+                              break; //Stop this loop, we found it!
+                            }
+                          }
+                        }} className={styles.upvote}>
+                          <span></span>{item?.upvoates}
+                        </button>
+                        <div className={styles.comment}>
+                          <span></span>{item?.comments?.length}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div className={styles.content}>
-                  <div className={styles.dotCont}>
-                    <div className={styles.dot1}></div>
-                    <p>Planned</p>
-                  </div>
-                  <div className={styles.info}>
-                    <text>Learning paths</text>
-                    <p>
-                      Sequenced projects for different goals to help people
-                      improve.
-                    </p>
-                  </div>
-                  <button className={styles.btn2}>Feature</button>
-                  <div className={styles.upvoteCont}>
-                    <button className={styles.upvote}>
-                      <span></span>28
-                    </button>
-                    <div className={styles.comment}>
-                      <span></span>1
-                    </div>
-                  </div>
-                </div>
+                  )
+                })}
+
+
               </div>
             ) : null}
             {page.includes(2) ? (
               <div className={styles.inprogress}>
                 <div className={styles.header}>
-                  <text>In-Progress (3)</text>
+                  <text>In-Progress ({suggestions.filter((item) => item?.status === "In-Progress")?.length})</text>
                   <p>Currently being developed</p>
                 </div>
-                <div className={styles.content2}>
-                  <div className={styles.dotCont}>
-                    <div className={styles.dot2}></div>
-                    <p>In Progress</p>
-                  </div>
-                  <div className={styles.info}>
-                    <text>One-click portfolio generation</text>
-                    <p>
-                      Add ability to create professional looking portfolio from
-                      profile.
-                    </p>
-                  </div>
-                  <button className={styles.btn2}>Feature</button>
-                  <div className={styles.upvoteCont}>
-                    <button className={styles.upvote}>
-                      <span></span>123
-                    </button>
-                    <div className={styles.comment}>
-                      <span></span>2
+                {suggestions?.filter((item) => {
+                  return item?.status == "In-Progress"
+                }).map((item, index) => {
+                  return (
+                    <div className={styles.content2}>
+                      <div className={styles.dotCont}>
+                        <div className={styles.dot2}></div>
+                        <p>In-Progress</p>
+                      </div>
+                      <div className={styles.info}>
+                        <Link href={"/feedback-detail/?id="
+                        /*sends the id and tile of the suggestion
+                           you want to read to the details
+                           page so that it displays that
+                           specific suggestions details*/ + item?.id}><text>{item?.title}</text></Link>
+
+                        <p>
+                          {item?.details}
+                        </p>
+                      </div>
+                      <button className={styles.btn2}>{item?.category}</button>
+                      <div className={styles.upvoteCont}>
+                        <button onClick={() => {
+                          let tempsuggestions = [...suggestions]
+                          for (var i in tempsuggestions) {
+                            if (tempsuggestions[i].id == item?.id) {
+                              tempsuggestions[i].upvoates = tempsuggestions[i].upvoates + 1;
+
+                              setSuggestions([...tempsuggestions])
+                              break; //Stop this loop, we found it!
+                            }
+                          }
+                        }} className={styles.upvote}>
+                          <span></span>{item?.upvoates}
+                        </button>
+                        <div className={styles.comment}>
+                          <span></span>{item?.comments?.length}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div className={styles.content2}>
-                  <div className={styles.dotCont}>
-                    <div className={styles.dot2}></div>
-                    <p>In Progress</p>
-                  </div>
-                  <div className={styles.info}>
-                    <text>Bookmark challenges</text>
-                    <p>Be able to bookmark challenges to take later on.</p>
-                  </div>
-                  <button className={styles.btn2}>Feature</button>
-                  <div className={styles.upvoteCont}>
-                    <button className={styles.upvote}>
-                      <span></span>28
-                    </button>
-                    <div className={styles.comment}>
-                      <span></span>1
-                    </div>
-                  </div>
-                </div>
-                <div className={styles.content2}>
-                  <div className={styles.dotCont}>
-                    <div className={styles.dot2}></div>
-                    <p>In Progress</p>
-                  </div>
-                  <div className={styles.info}>
-                    <text>Animated solution screenshots</text>
-                    <p>
-                      Screenshots of solutions with animations don’t display
-                      content.
-                    </p>
-                  </div>
-                  <button className={styles.btn2}>Feature</button>
-                  <div className={styles.upvoteCont}>
-                    <button className={styles.upvote}>
-                      <span></span>9
-                    </button>
-                    <div className={styles.comment}>
-                      <span></span>0
-                    </div>
-                  </div>
-                </div>
+                  )
+                })}
               </div>
             ) : null}
             {page.includes(3) ? (
               <div className={styles.live}>
                 <div className={styles.header}>
-                  <text>Live (1)</text>
+                  <text>Live ({suggestions.filter((item) => item?.status === "Live")?.length})</text>
                   <p>Released features</p>
                 </div>
-                <div className={styles.content3}>
-                  <div className={styles.dotCont}>
-                    <div className={styles.dot3}></div>
-                    <p>Live</p>
-                  </div>
-                  <div className={styles.info}>
-                    <text>Add micro-interactions</text>
-                    <p>Small animations at specific points can add delight.</p>
-                  </div>
-                  <button className={styles.btn2}>Feature</button>
-                  <div className={styles.upvoteCont}>
-                    <button className={styles.upvote}>
-                      <span></span>71
-                    </button>
-                    <div className={styles.comment}>
-                      <span></span>2
+                {suggestions?.filter((item) => {
+                  return item?.status == "Live"
+                }).map((item, index) => {
+                  return (
+                    <div className={styles.content3}>
+                      <div className={styles.dotCont}>
+                        <div className={styles.dot3}></div>
+                        <p>Live</p>
+                      </div>
+                      <div className={styles.info}>
+                        <Link href={"/feedback-detail/?id="
+                        /*sends the id and tile of the suggestion
+                           you want to read to the details
+                           page so that it displays that
+                           specific suggestions details*/ + item?.id}><text>{item?.title}</text></Link>
+
+                        <p>
+                          {item?.details}
+                        </p>
+                      </div>
+                      <button className={styles.btn2}>{item?.category}</button>
+                      <div className={styles.upvoteCont}>
+                        <button onClick={() => {
+                          let tempsuggestions = [...suggestions]
+                          for (var i in tempsuggestions) {
+                            if (tempsuggestions[i].id == item?.id) {
+                              tempsuggestions[i].upvoates = tempsuggestions[i].upvoates + 1;
+
+                              setSuggestions([...tempsuggestions])
+                              break; //Stop this loop, we found it!
+                            }
+                          }
+                        }} className={styles.upvote}>
+                          <span></span>{item?.upvoates}
+                        </button>
+                        <div className={styles.comment}>
+                          <span></span>{item?.comments?.length}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  )
+                })}
               </div>
             ) : null}
           </div>

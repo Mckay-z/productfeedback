@@ -6,7 +6,7 @@ $vw-viewport: 1440;
 }
 .container {
   width: 100vw;
-  height: fit-content;
+  min-height: 100vh;
   background-color: #f2f2f2;
   font-family: "Jost";
   display: flex;
@@ -111,16 +111,20 @@ $vw-viewport: 1440;
   color: #3a4374;
   border-radius: get-vw(5px);
   border: none;
+  outline: none;
 }
 .input3 textarea {
   width: 100%;
   height: get-vw(160px);
   margin-top: get-vw(16px);
   margin-bottom: get-vw(16px);
+  font-size: get-vw(15px);
   background-color: #f7f8fd;
   color: #3a4374;
   border-radius: get-vw(5px);
   border: none;
+  outline: none;
+  resize: none;
 }
 .btns {
   width: 100%;
@@ -258,6 +262,8 @@ $vw-viewport: 1440;
     color: #3a4374;
     border-radius: get-vw(5px);
     border: none;
+    resize: none;
+    outline: none;
   }
   .btns {
     width: 100%;
@@ -438,6 +444,9 @@ $vw-viewport: 1440;
     color: #3a4374;
     border-radius: get-vw(5px);
     border: none;
+    resize: none;
+    font-size: get-vw(50px);
+    outline: none;
   }
   .btns {
     width: 100%;

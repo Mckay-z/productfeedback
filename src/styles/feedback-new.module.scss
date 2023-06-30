@@ -13,7 +13,7 @@ $vw-viewport: 1440;
   align-items: center;
   justify-content: center;
   background: #f2f2f2;
-  padding: get-vw(0px) 0 get-vw(100px) 0;
+  padding: get-vw(50px) 0 get-vw(100px) 0;
 }
 .main {
   font-family: "Jost";
@@ -23,8 +23,8 @@ $vw-viewport: 1440;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: get-vw(100px) 0 get-vw(100px) 0;
+  // justify-content: center;
+  padding: get-vw(100px) 0 get-vw(0px) 0;
 }
 .feedbackCont {
   width: 60%;
@@ -101,6 +101,10 @@ $vw-viewport: 1440;
   font-size: get-vw(17px);
   margin-top: get-vw(10px);
 }
+.input1{
+  height: fit-content;
+  padding-bottom: get-vw(25px);
+}
 .input1 input,
 .input2 select {
   width: 100%;
@@ -110,9 +114,13 @@ $vw-viewport: 1440;
   font-size: get-vw(15px);
   background: #f7f8fd;
   color: #3a4374;
-  border-radius: get-vw(5px);
   border: none;
+  border-radius: get-vw(5px);
   padding: 0 get-vw(24px) 0 get-vw(22px);
+  outline: none;
+}
+.input1 input{
+  border: #d73737 solid 1px;
 }
 .input2 option:checked {
   font-size: get-vw(10px);
@@ -132,9 +140,9 @@ $vw-viewport: 1440;
   background-color: #f7f8fd;
   color: #3a4374;
   border-radius: get-vw(5px);
-  border: #d73737 get-vw(2px) solid;
+  outline: none;
 }
-.input3 p {
+.err {
   color: #d73737;
   font-size: get-vw(15px);
 }
@@ -180,25 +188,25 @@ $vw-viewport: 1440;
 @media (min-width: 701px) and (max-width: 1120px) {
   .container {
     width: 100vw;
-    height: fit-content;
+    min-height: 100vh;
     font-family: "Jost";
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     background: #f2f2f2;
-    padding: get-vw(0px) 0 get-vw(100px) 0;
+    padding: get-vw(50px) 0 get-vw(100px) 0;
   }
   .main {
     font-family: "Jost";
     width: 100vw;
-    height: fit-content;
+    min-height: 100vh;
     background: #f2f2f2;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: get-vw(100px) 0 get-vw(100px) 0;
+    padding: get-vw(0px) 0 get-vw(0px) 0;
   }
   .feedbackCont {
     width: 95%;
@@ -388,24 +396,24 @@ $vw-viewport: 1440;
   }
   .container {
     width: 100vw;
-    height: fit-content;
+    min-height: 100vh;
     font-family: "Jost";
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    // align-items: center;
+    // justify-content: center;
     background: #f2f2f2;
   }
   .main {
     font-family: "Jost";
     width: 100vw;
-    height: fit-content;
+    min-height: 100vh;
     background: #f2f2f2;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: get-vw(100px) 0 get-vw(250px) 0;
+    // align-items: center;
+    // justify-content: center;
+    padding: get-vw(0px) 0 get-vw(0px) 0;
   }
   .feedbackCont {
     width: 90%;
@@ -416,7 +424,7 @@ $vw-viewport: 1440;
     color: #3a4374;
     padding-left: 20px;
     padding-right: 20px;
-    padding-top: get-vw(200px);
+    // padding-top: get-vw(200px);
     justify-content: center;
   }
   .feedback h4 {

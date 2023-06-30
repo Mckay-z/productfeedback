@@ -89,9 +89,10 @@ $vw-viewport: 1440;
   margin-bottom: get-vw(24px);
 }
 .btn2 {
-  width: get-vw(40px);
-  height: get-vw(53px);
+  width: fit-content;
+  height: get-vw(56px);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background: #f2f4fe;
@@ -102,45 +103,80 @@ $vw-viewport: 1440;
   font-weight: 700;
   font-size: get-vw(13px);
   margin-right: get-vw(-50px);
+  padding-left: get-vw(15px);
+  padding-right: get-vw(15px);
 }
 .btn2:hover {
   background: #cfd7ff;
 }
+.btn2 span {
+  background: url(/arrow.png);
+  width: get-vw(10px);
+  height: get-vw(10px);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-bottom: get-vw(5px);
+}
 .txt {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
+  align-items: flex-start;
+  width: 70%;
 }
 .txt text {
   font-weight: 700;
   font-size: get-vw(18px);
 }
+.pcont {
+  width: get-vw(200px);
+  height: fit-content;
+  text-overflow: clip;
+}
 .txt p {
   font-weight: 400;
   font-size: get-vw(16px);
+  text-overflow: clip;
   color: #647196;
 }
 .btn3 {
-  width: get-vw(77px);
-  height: get-vw(30px);
+  width: fit-content;
+  height: get-vw(35px);
   display: flex;
   align-items: center;
   justify-content: center;
   background: #f2f4ff;
-  border-radius: get-vw(10px);
+  border-radius: get-vw(7px);
   border: none;
   cursor: pointer;
   color: #4661e6;
   font-weight: 700;
   font-size: get-vw(13px);
   margin-top: get-vw(12px);
+  padding-left: get-vw(15px);
+  padding-right: get-vw(15px);
+  margin-top: get-vw(12px);
 }
 .btn3:hover {
   background: #cfd7ff;
 }
 .chat {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-weight: 700;
   font-size: get-vw(16px);
+}
+.chat span {
+  background: url(/chat.png);
+  width: get-vw(23px);
+  height: get-vw(22px);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  margin-right: get-vw(10px);
 }
 .chat2 {
   display: none;
@@ -222,7 +258,7 @@ $vw-viewport: 1440;
   font-size: get-vw(15px);
   color: #647196;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 .replyCont {
@@ -241,6 +277,7 @@ $vw-viewport: 1440;
   border: #4661e6 solid 1px;
   color: #3a4374;
   font-size: get-vw(15px);
+  outline: none;
 }
 .replyCont button {
   width: get-vw(117px);
@@ -308,6 +345,7 @@ $vw-viewport: 1440;
   padding: 0 get-vw(30px) 0 get-vw(30px);
   margin-top: get-vw(24px);
   margin-bottom: get-vw(16px);
+  outline: none;
 }
 .characters {
   display: flex;
@@ -439,7 +477,7 @@ $vw-viewport: 1440;
     margin-right: get-vw(-50px);
   }
   .txt {
-    width: fit-content;
+    width: 75%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -472,6 +510,17 @@ $vw-viewport: 1440;
   .chat {
     font-weight: 700;
     font-size: get-vw(28px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .chat span{
+    background: url(/chat.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: get-vw(30px);
+    height: get-vw(30px);
+    margin-right: get-vw(10px);
   }
   .chat2 {
     display: none;
@@ -677,7 +726,7 @@ $vw-viewport: 1440;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: get-vw(0px) 0 get-vw(0px) 0;
+    padding: get-vw(50px) 0 get-vw(0px) 0;
   }
   .main {
     font-family: "Jost";
@@ -793,36 +842,45 @@ $vw-viewport: 1440;
     margin-top: get-vw(40px);
   }
   .btn3 {
-    width: get-vw(307px);
+    width: fit-content;
     height: get-vw(105px);
     display: flex;
     align-items: center;
     justify-content: center;
     background: #f2f4ff;
-    border-radius: get-vw(40px);
+    border-radius: get-vw(15px);
     border: none;
     cursor: pointer;
     color: #4661e6;
     font-weight: 700;
     font-size: get-vw(40px);
     margin-top: get-vw(50px);
+    padding: 0 get-vw(40px) 0 get-vw(40px);
   }
   .btn3:hover {
     background: #cfd7ff;
   }
   .btn10 {
-    width: get-vw(250px);
+    width: get-vw(150px);
     height: get-vw(105px);
     display: flex;
     align-items: center;
     justify-content: center;
     background: #f2f4fe;
-    border-radius: get-vw(30px);
+    border-radius: get-vw(20px);
     border: none;
     cursor: pointer;
     color: #3a4374;
     font-weight: 700;
     font-size: get-vw(40px);
+  }
+  .btn10 span {
+    background: url(/arrow.png);
+    width: get-vw(40px);
+    height: get-vw(40px);
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: get-vw(10px);
   }
   .chat {
     display: none;
